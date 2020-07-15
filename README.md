@@ -1,4 +1,6 @@
 # BLauncher
+[English version](https://github.com/maxgrt/BLauncher/blob/master/README-EN.md)
+
 BLauncher - альтернативный лаунчер известной игры Minecraft.
 
 #Использование
