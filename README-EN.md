@@ -1,8 +1,8 @@
 # BLauncher
 BLauncher is an alternative launcher of the famous Minecraft game.
 
-#Using
-** To use the launcher you need access to the java command from the console! **
+# Using
+**To use the launcher you need access to the java command from the console!**
 1. Install the dependency `pip install minecraft-launcher-lib`.
 2. Run the file `main.py`.
 3. If you have a Minecraft license, then click on `Log in through Mojang`, where enter your username and password for your account. I won’t get access to them; the login function can be found in `main.py` (line 88).
