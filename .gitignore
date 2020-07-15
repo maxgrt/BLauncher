@@ -2,6 +2,7 @@
 /src/game
 /src/logs
 /src/debug.log
+/src/output
 /.idea
 /debug.log
 src/__pycashe__
