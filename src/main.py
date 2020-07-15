@@ -50,7 +50,7 @@ def setMax(max_value, value):
     max_value[0] = value
 
 def run():
-    if version.get() in installed_ver:
+    if version.get() in installed_ver or version.get() in all_ver:
         run.configure(state="disabled")
         username.configure(state="disabled")
         uuid.configure(state="disabled")
