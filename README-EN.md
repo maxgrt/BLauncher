@@ -2,6 +2,8 @@
 BLauncher is an alternative launcher of the famous Minecraft game.
 
 # Using
+**Please replace the lang.py file with the lang_en.py file, keeping the name, to change the language to English.**
+
 **To use the launcher you need access to the java command from the console!**
 1. Install the dependency `pip install minecraft-launcher-lib`.
 2. Run the file `main.py`.
