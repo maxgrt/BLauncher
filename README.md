@@ -1,14 +1,17 @@
 # BLauncher
-[English version](https://github.com/maxgrt/BLauncher/blob/master/README-EN.md)
 
-BLauncher - альтернативный лаунчер известной игры Minecraft.
+BLauncher - alternative Minecraft launcher written on Python.
 
-# Использование
-**Для использования лаунчера необходим доступ к команде `java` из консоли!**
-1. Установите зависимость `pip install minecraft-launcher-lib`.
-2. Запустите файл `main.py`.
-3. Если у Вас есть лицензия Minecraft, то нажмите `Вход через Mojang`, где введите свой логин и пароль от аккаунта. Я не получу к ним доступ, функцию входа можно найти в `main.py` (сторка 88).
-Поля `Ник`, `UUID`, `Токен` заполнятся автоматически. Если лицензии нет, то в поле`Ник` введите желаемое имя в игре, а 2 других поля заполните случайными символами.
-4. Выберите версию игры и нажмите `Запуск`. Клиент игры загрузится и запустится.
+## Using
 
-Если Вы запускаете лаунчер через EXE файл, то начните с 3 пункта.
+1. Install dependencies: minecraft-launcher-lib and (if not installed) tkinter.
+2. Run main.py
+3. Fill in the fields or login with Mojang and select version.
+4. Click Run.
+
+## Language change
+
+1. Open lang.py
+2. Change values.
+3. Save file.
+4. Restart BLauncher.
