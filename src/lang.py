@@ -1,18 +1,14 @@
-# Language file
-# DEFAULT: ru
-# You can change it:
-# ex.|English|Your lang.|
-#    | nick  | Ник      |
-#
-mojang_login = "Вход через Mojang"
-login = "Логин"
-password = "Пароль"
-log_in = "Войти"
-nick = "Ник"
+# This is language file. You can change it!
+
+mojang_login = "Log in through Mojang"
+login = "Login"
+password = "Password"
+log_in = "Log in"
+nick = "Nick"
 uuid = "UUID"
-access_token = "Токен"
-installed = "Установлено"
-ready_to_install = "Готово к установке"
-install_run = "Запуск"
-error = "Ошибка"
-version_is_not_detected = "Версия не найдена"
+access_token = "Token"
+installed = "Installed"
+ready_to_install = "Ready to install"
+install_run = "Run"
+error = "Error"
+version_is_not_detected = "Invalid version"
