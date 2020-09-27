@@ -11,18 +11,18 @@ import lang
 
 
 # settings
-patch = "game" # patch to install
+path = "game" # path to install
 
 # versions
-if not(os.path.isdir(patch + "/versions/")):
-    os.mkdir(patch)
-    os.mkdir(patch + "/versions/")
+if not(os.path.isdir(path + "/versions/")):
+    os.mkdir(path)
+    os.mkdir(path + "/versions/")
 
 installed_ver = []
 all_ver = []
 ver_list = []
 
-for i in minecraft_launcher_lib.utils.get_installed_versions(patch):
+for i in minecraft_launcher_lib.utils.get_installed_versions(path):
     installed_ver.append(i.get("id"))
 for i in minecraft_launcher_lib.utils.get_version_list():
     all_ver.append(i.get("id"))
@@ -57,7 +57,7 @@ def run():
         access_token.configure(state="disabled")
         mojang_login.configure(state="disabled")
         version.configure(state="disabled")
-        with open(patch + "/profile.json", "w") as pj:
+        with open(path + "/profile.json", "w") as pj:
             pj.write(
                 "{ \"nick\": \"" + username.get() + "\", \"uuid\": \"" + uuid.get() + "\", \"accToken\": \"" + access_token.get() + "\", \"version\": \"" + version.get() + "\" }")
         max_value = [0]
@@ -66,13 +66,13 @@ def run():
              "setProgress": lambda value: setProgress(value, max_value),
              "setMax": lambda value: setMax(max_value, value)
         }
-        minecraft_launcher_lib.install.install_minecraft_version(version.get(), patch, callback)
+        minecraft_launcher_lib.install.install_minecraft_version(version.get(), path, callback)
         options = {
             "username": username.get(),
             "uuid": uuid.get(),
             "token": access_token.get()
         }
-        command = minecraft_launcher_lib.command.get_minecraft_command(version.get(), patch, options)
+        command = minecraft_launcher_lib.command.get_minecraft_command(version.get(), path, options)
         print(command)
         subprocess.Popen(command)
         run.configure(state="normal")
@@ -94,9 +94,7 @@ def mlogin():
         access_token.insert(0, login_data["accessToken"])
     root1 = Tk()
     root1.title("BL")
-    root1.geometry("200x100")
     root1.resizable(False, False)
-    root1.iconbitmap("favicon.ico")
     mltxt = Label(root1, text=lang.login)
     mltxt.grid(row=0, column=0)
     mptxt = Label(root1, text=lang.password)
@@ -112,9 +110,8 @@ def mlogin():
 # Tkinter
 root = Tk()
 root.title("BLauncher")
-root.geometry("500x200")
+#root.geometry("500x200") <-- This is bad idea :(
 root.resizable(False, False)
-root.iconbitmap("favicon.ico")
 
 # Mojang Login
 mojang_login = Button(root, text=lang.mojang_login, command=mlogin)
@@ -164,17 +161,20 @@ jsonstr = """
   }
 }
 """
-if not(os.path.isfile(patch + "/launcher_profiles.json")):
-    with open(patch + "/launcher_profiles.json", "w") as lp:
+if not(os.path.isfile(path + "/launcher_profiles.json")):
+    with open(path + "/launcher_profiles.json", "w") as lp:
         lp.write(jsonstr)
 
 # load profile
-if os.path.isfile(patch + "/profile.json"):
-    rp = open(patch + "/profile.json", "r")
+if os.path.isfile(path + "/profile.json"):
+    rp = open(path + "/profile.json", "r")
     profile = json.load(rp)
     username.insert(0, profile['nick'])
     uuid.insert(0, profile['uuid'])
     access_token.insert(0, profile['accToken'])
     version.insert(0, profile['version'])
 
+# log
+logger("BLauncher v0.1 by maxgrt")
+logger("!!! Minecraft was created by Mojang. All rights belong to their owners. !!!")
 root.mainloop()
