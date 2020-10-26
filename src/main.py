@@ -14,7 +14,7 @@ from tkinter import ttk
 from tkinter import messagebox as mb
 import lang
 
-VERSION_C = 0
+VERSION_C = 1
 AUTO_UPDATE = True
 # settings
 path = "game" # path to install
