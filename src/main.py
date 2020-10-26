@@ -1,19 +1,25 @@
+#!/usr/bin/python3
+
 import minecraft_launcher_lib
 import subprocess
+from threading import Thread
+import requests
 import random
 import string
 import os
+import sys
 import json
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as mb
 import lang
 
-
+VERSION_C = 0
+AUTO_UPDATE = True
 # settings
 path = "game" # path to install
 
-# versions
+# game versions
 if not(os.path.isdir(path + "/versions/")):
     os.mkdir(path)
     os.mkdir(path + "/versions/")
@@ -40,6 +46,29 @@ def logger(string):
     log.configure(state="disabled")
     root.update()
 
+def downloader(url, name):
+	file = open(name, "wb")
+	request = requests.get(url)
+	file.write(request.content)
+	file.close()
+
+def update_check():
+	logger("Checking for updates...")
+	version_code = requests.get("https://raw.githubusercontent.com/maxgrt/BLauncher/master/src/version_code.txt")
+	last = int(version_code.content.decode("utf-8"))
+	if last > VERSION_C:
+		logger("Update found! Downloading...")
+		thread1 = Thread(target=downloader, args=("https://github.com/maxgrt/BLauncher/archive/master.zip", "update.zip"))
+		thread1.start()
+		thread1.join()
+		#downloader("https://github.com/maxgrt/BLauncher/archive/master.zip", "update.zip")
+		logger("Update.zip downloaded.")
+		root.destroy()
+		py_executable = sys.executable
+		os.system(py_executable + " update.py")
+	else:
+		logger("No updates found")
+
 def setProgress(value, max_value):
     progresspersent = max_value[0] / 100
     progr = value / progresspersent
@@ -49,6 +78,7 @@ def setProgress(value, max_value):
 def setMax(max_value, value):
     max_value[0] = value
 
+
 def run():
     if version.get() in installed_ver or version.get() in all_ver:
         run.configure(state="disabled")
@@ -57,6 +87,7 @@ def run():
         access_token.configure(state="disabled")
         mojang_login.configure(state="disabled")
         version.configure(state="disabled")
+
         with open(path + "/profile.json", "w") as pj:
             pj.write(
                 "{ \"nick\": \"" + username.get() + "\", \"uuid\": \"" + uuid.get() + "\", \"accToken\": \"" + access_token.get() + "\", \"version\": \"" + version.get() + "\" }")
@@ -176,5 +207,7 @@ if os.path.isfile(path + "/profile.json"):
 
 # log
 logger("BLauncher v0.1 by maxgrt")
-logger("!!! Minecraft was created by Mojang. All rights belong to their owners. !!!")
+logger("!!! Minecraft was created by Mojang. All rights belong to their owners. !!!\n")
+if AUTO_UPDATE:
+	update_check()
 root.mainloop()
