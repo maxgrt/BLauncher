@@ -15,3 +15,5 @@ print("Deleting unnecessary files...")
 os.remove("update.zip")
 shutil.rmtree("BLauncher-master")
 print("Sucsess!")
+
+os.system(py_executable + " main.py")
