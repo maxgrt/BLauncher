@@ -2,6 +2,11 @@
 
 BLauncher - alternative Minecraft launcher written on Python.
 
+* Launcher requires access to java command from console
+
+## Changelog
+* The launcher will now update automatically.
+
 ## Using
 
 1. Install dependencies: minecraft-launcher-lib and (if not installed) tkinter.
