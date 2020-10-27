@@ -3,6 +3,7 @@
 import zipfile
 import shutil
 import os
+import sys
 
 print("BLauncher is updating now...")
 z = zipfile.ZipFile("update.zip", "r")
@@ -16,4 +17,4 @@ os.remove("update.zip")
 shutil.rmtree("BLauncher-master")
 print("Sucsess!")
 
-os.system(py_executable + " main.py")
+os.system(sys.executable + " main.py")
