@@ -15,7 +15,7 @@ import random
 import string
 import uuid
 
-import langa as lang # language module
+import lang # language module
 
 # =================== #
 #      SETTINGS       #
