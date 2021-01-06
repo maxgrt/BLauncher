@@ -1,15 +1,19 @@
 #!/usr/bin/python3
 
+import minecraft_launcher_lib
+import os
 import sys
 import json
 from threading import Thread
 import subprocess
+import requests
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as mb
 from tkinter import simpledialog as sd
 import random
 import string
+import uuid
 
 import langa as lang # language module
 
@@ -88,16 +92,22 @@ def run():
 		version.configure(state='disabled')
 		nickname = nick.get()
 		ver = version.get()
-		#######
-		uuid = 'bhfsdbhf'
-		token = 'dfcfghgnjg'
-		#######
+		rp = open(os.path.join(path, 'profile.json'), 'r')
+		try:
+			profile = json.load(rp)
+		except Exception as e:
+			createProfile()
+			rp = open(os.path.join(path, 'profile.json'), 'r')
+			profile = json.load(rp)
+
+		rp.close()
+
 		with open(os.path.join(path, 'profile.json'), 'w') as pj:
 			pj.write(json.dumps({
 				'nick': nickname,
 				'version': ver,
-				'uuid': uuid,
-				'accToken': token
+				'uuid': profile['uuid'],
+				'token': profile['token']
 				}))
 		max_value = [0]
 		callback = {
@@ -109,8 +119,8 @@ def run():
 		
 		options = {
 			'username': nickname,
-			'uuid': uuid,
-			'token': token
+			'uuid': profile['uuid'],
+			'token': profile['token']
 		}
 		command = minecraft_launcher_lib.command.get_minecraft_command(ver, path, options)
 		subprocess.Popen(command)
@@ -131,6 +141,12 @@ def mojanglogin():
 	password = sd.askstring('BLauncher', lang.ask_mojang_password)
 	try:
 		login_data = minecraft_launcher_lib.account.login_user(login, password)
+		isl = True
+		
+	except Exception as e:
+		logger(lang.error_during_login)
+		isl = False
+	if isl:
 		with open(os.path.join(path, 'profile.json'), 'w') as pj:
 			pj.write(json.dumps({
 				'nick': login_data["selectedProfile"]["name"],
@@ -138,8 +154,34 @@ def mojanglogin():
 				'uuid': login_data["selectedProfile"]["id"],
 				'accToken': login_data["accessToken"]
 				}))
-	except Exception as e:
-		logger(lang.error_during_login)
+
+
+def update_check():
+	logger("Checking for updates...")
+	version_c = requests.get("https://raw.githubusercontent.com/maxgrt/BLauncher/master/src/version_code.txt")
+	last = int(version_c.content.decode("utf-8"))
+	if last > version_code:
+		logger("Update found! Downloading...")
+		thread1 = Thread(target=downloader, args=("https://github.com/maxgrt/BLauncher/archive/master.zip", "update.zip"))
+		thread1.start()
+		thread1.join()
+		#downloader("https://github.com/maxgrt/BLauncher/archive/master.zip", "update.zip")
+		logger("Update.zip downloaded.")
+		if mb.askyesno('BLauncher', lang.can_i_upgrade):
+
+			root.destroy()
+			py_executable = sys.executable
+			os.system(py_executable + " update.py")
+	else:
+		logger("No updates found")
+
+def createProfile():
+	with open(os.path.join(path, 'profile.json'), 'w') as rp:
+		rp.write(json.dumps({
+			'nick': 'Steve',
+			'uuid': str(uuid.uuid1()),
+			'token': str(uuid.uuid1())
+			}))
 
 # =================== #
 #       TKINTER       #
@@ -206,6 +248,8 @@ if os.path.isfile(os.path.join(path, 'profile.json')):
 		version.insert(0, profile['version'])
 	except Exception as e:
 		pass
+else:
+	createProfile()
 	
 
 # launcher-profiles.json
@@ -231,4 +275,5 @@ logger('''
 |____/|______|   v 0.2 by maxgrt
 	''')
 
+update_check()
 root.mainloop()
