@@ -1,17 +1,20 @@
 # BLauncher
 
-BLauncher - alternative Minecraft launcher written on Python.
-
-* Launcher requires access to java command from console
+BLauncher - alternative Minecraft launcher written on Python without any advertising.
 
 ## Changelog
-* The launcher will now update automatically.
+* New interface
+* Bug fixes
+
+##To do
+* Create a better ui
+* Fix bugs
 
 ## Using
 
-1. Install dependencies: minecraft-launcher-lib and (if not installed) tkinter.
+1. Install dependencies: minecraft-launcher-lib  `pip install minecraft-launcher-lib` and (if not installed) tkinter.
 2. Run main.py
-3. Fill in the fields or login with Mojang and select version.
+3. Fill in the field or login with Mojang and select version.
 4. Click Run.
 
 ## Language change
