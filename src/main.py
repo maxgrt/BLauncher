@@ -1,21 +1,20 @@
 #!/usr/bin/python3
 
-import minecraft_launcher_lib
-import os
-import sys
 import json
-from threading import Thread
-import subprocess
-import requests
-from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox as mb
-from tkinter import simpledialog as sd
+import os
 import random
 import string
+import subprocess
 import uuid
+from threading import Thread
+from tkinter import *
+from tkinter import messagebox as mb
+from tkinter import simpledialog as sd
+from tkinter import ttk
 
 import lang  # language module
+import minecraft_launcher_lib
+import requests
 
 # =================== #
 #      SETTINGS       #
